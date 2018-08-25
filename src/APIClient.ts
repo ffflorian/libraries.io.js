@@ -31,7 +31,7 @@ export class LibrariesIO {
       user: new API.User(this.requestService),
       getPlatforms: () => {
         const endpoint = Endpoint.platforms();
-        return this.requestService.request<Interfaces.Platform>(endpoint);
+        return this.requestService.get<Interfaces.Platform>(endpoint);
       },
       getProject: (platform: string, name: string) => {
         const endpoint = Endpoint.Project.project(encodeURIComponent(platform), encodeURIComponent(name));
@@ -39,7 +39,7 @@ export class LibrariesIO {
           platform,
           name,
         };
-        return this.requestService.request(endpoint, parameters);
+        return this.requestService.get(endpoint, parameters);
       },
     };
   }

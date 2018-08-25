@@ -1,3 +1,3 @@
 export interface ProjectUsage {
-  [version: string]: number
+  [version: string]: number;
 }

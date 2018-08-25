@@ -29,7 +29,7 @@
     "build": "tsc",
     "clear": "rimraf dist",
     "dist": "yarn clear && yarn build",
-    "prettier": "prettier --write \"src/*.ts\" \"spec/*.js\"",
+    "prettier": "prettier --write \"src/**/*.ts\" \"spec/**/*.js\"",
     "test": "yarn dist && jasmine"
   },
   "types": "dist/index.d.ts",

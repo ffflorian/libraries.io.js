@@ -1,15 +1,41 @@
 import {RequestService} from '../RequestService';
 import * as Interfaces from '../interfaces/';
-import { Endpoint } from '../Endpoint';
+import {Endpoint} from '../Endpoint';
 
 export class User {
   constructor(private readonly requestService: RequestService) {}
 
-  getSubscriptions(userName: string): Promise<Interfaces.ProjectRelease[]> {
+  getSubscriptions(): Promise<Interfaces.ProjectRelease[]> {
     const endpoint = Endpoint.subscriptions();
-    const params = {
-      name: encodeURIComponent(userName)
-    }
-    return this.requestService.request(endpoint, params);
+    return this.requestService.get(endpoint);
+  }
+
+  addSubscription(
+    platform: string,
+    projectName: string,
+    includePrerelease = false
+  ): Promise<Interfaces.ProjectRelease> {
+    const endpoint = Endpoint.subscriptions(platform, projectName);
+    const parameters = {
+      include_prerelease: includePrerelease,
+      name: projectName,
+      platform,
+    };
+
+    return this.requestService.post(endpoint, parameters);
+  }
+
+  updateSubscription(
+    platform: string,
+    projectName: string,
+    includePrerelease = false
+  ): Promise<Interfaces.ProjectRelease> {
+    const endpoint = Endpoint.subscriptions(platform, projectName);
+    const parameters = {
+      include_prerelease: includePrerelease,
+      name: projectName,
+      platform,
+    };
+    return this.requestService.put(endpoint, parameters);
   }
 }

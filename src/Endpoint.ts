@@ -73,7 +73,13 @@ export namespace Endpoint {
     return `/${SEARCH}`;
   }
 
-  export function subscriptions(): string {
-    return `/${SUBSCRIPTIONS}`;
+  export function subscriptions(platform: string, name: string): string;
+  export function subscriptions(): string;
+  export function subscriptions(platform?: string, name?: string): string {
+    let endpoint = `/${SUBSCRIPTIONS}`;
+    if (platform && name) {
+      endpoint += `/${platform}/${name}`;
+    }
+    return endpoint;
   }
 }
