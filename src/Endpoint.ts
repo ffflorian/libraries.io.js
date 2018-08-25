@@ -47,15 +47,15 @@ export namespace Endpoint {
 
   export namespace Repository {
     export function dependencies(owner: string, name: string): string {
-      return `/${GITHUB}/${owner}/${name}/${DEPENDENCIES}`;
+      return `/${owner}/${name}/${DEPENDENCIES}`;
     }
 
     export function projects(owner: string, name: string): string {
-      return `/${GITHUB}/${owner}/${name}/${PROJECTS}`;
+      return `/${owner}/${name}/${PROJECTS}`;
     }
   }
 
-  export namespace User {
+  export namespace GitHub {
     export function dependencies(login: string): string {
       return `/${GITHUB}/${login}/${DEPENDENCIES}`;
     }

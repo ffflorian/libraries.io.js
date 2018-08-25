@@ -29,24 +29,22 @@ export class LibrariesIO {
       project: new API.Project(this.requestService),
       repository: new API.Repository(this.requestService),
       user: new API.User(this.requestService),
+      getPlatforms: () => {
+        const endpoint = Endpoint.platforms();
+        return this.requestService.request<Interfaces.Platform>(endpoint);
+      },
+      getProject: (platform: string, name: string) => {
+        const endpoint = Endpoint.Project.project(encodeURIComponent(platform), encodeURIComponent(name));
+        const parameters = {
+          platform,
+          name,
+        };
+        return this.requestService.request(endpoint, parameters);
+      },
     };
   }
 
   public setApiUrl(newUrl: string | URL): void {
     this.requestService.setApiUrl(newUrl);
-  }
-
-  public getPlatforms(): Promise<Interfaces.Platform> {
-    const endpoint = Endpoint.platforms();
-    return this.requestService.request<Interfaces.Platform>(endpoint);
-  }
-
-  public getProject(platform: string, name: string): Promise<Interfaces.Project> {
-    const endpoint = Endpoint.Project.project(encodeURIComponent(platform), encodeURIComponent(name));
-    const parameters = {
-      platform,
-      name,
-    };
-    return this.requestService.request<Interfaces.Project>(endpoint, parameters);
   }
 }
