@@ -5,8 +5,6 @@ import {Endpoint} from './Endpoint';
 import * as Interfaces from './interfaces/';
 import * as API from './api/';
 
-const encode: typeof encodeURIComponent = encodeURIComponent;
-
 export class LibrariesIO {
   private readonly requestService: RequestService;
   private options: Interfaces.ClientOptions;
@@ -16,7 +14,7 @@ export class LibrariesIO {
   constructor(options: Interfaces.ClientOptions);
   constructor(options: Interfaces.ClientOptions | string) {
     if (typeof options === 'string') {
-      options = { apiKey: options };
+      options = {apiKey: options};
     }
 
     this.options = options;
@@ -31,7 +29,7 @@ export class LibrariesIO {
       project: new API.Project(this.requestService),
       repository: new API.Repository(this.requestService),
       user: new API.User(this.requestService),
-    }
+    };
   }
 
   public setApiUrl(newUrl: string | URL): void {
@@ -44,10 +42,10 @@ export class LibrariesIO {
   }
 
   public getProject(platform: string, name: string): Promise<Interfaces.Project> {
-    const endpoint = Endpoint.Project.project(encode(platform), encode(name));
+    const endpoint = Endpoint.Project.project(encodeURIComponent(platform), encodeURIComponent(name));
     const parameters = {
       platform,
-      name
+      name,
     };
     return this.requestService.request<Interfaces.Project>(endpoint, parameters);
   }

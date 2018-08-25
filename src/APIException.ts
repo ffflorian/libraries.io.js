@@ -1,11 +1,12 @@
-import { AxiosError } from 'axios';
+import {AxiosError} from 'axios';
 
 export class APIException extends Error {
   constructor(statusCode?: number, statusText?: string, message?: string) {
     super(message);
-    this.message = `Request failed with status code ${statusCode}`
-      + (statusText ? `: ${statusText}.` : '.')
-      + ' The server did not provide any further information.'
+    this.message =
+      `Request failed with status code ${statusCode}` +
+      (statusText ? `: ${statusText}.` : '.') +
+      ' The server did not provide any further information.';
     Object.setPrototypeOf(this, new.target.prototype);
   }
 }
@@ -25,7 +26,7 @@ export class RateLimitError extends Error {
 }
 
 export function ExceptionMapper(error: AxiosError): Error {
-  const { status: statusCode = 0, statusText = '' } = error.response || {};
+  const {status: statusCode = 0, statusText = ''} = error.response || {};
 
   if (statusCode && statusText) {
     switch (statusCode) {

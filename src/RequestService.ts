@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, {AxiosRequestConfig} from 'axios';
 import {URL} from 'url';
 
 import {ExceptionMapper} from './APIException';
@@ -22,7 +22,7 @@ export class RequestService {
         api_key: this.apiKey,
       },
       baseURL: this.apiUrl.toString(),
-    }
+    };
 
     try {
       const response = await axios.get<T>(this.apiUrl.toString() + endpoint, config);

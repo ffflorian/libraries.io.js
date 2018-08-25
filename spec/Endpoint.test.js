@@ -9,5 +9,5 @@ describe('Endpoint', () => {
 
     const endpoint = Endpoint.Project.contributors(platform, name);
     expect(endpoint).toBe('/npm/grunt/contributors');
-  })
-})
+  });
+});

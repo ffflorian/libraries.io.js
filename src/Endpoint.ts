@@ -33,7 +33,7 @@ export namespace Endpoint {
     }
 
     export function subscriptions(platform: string, name: string): string {
-      return `/${SUBSCRIPTIONS}/${platform}/${name}`
+      return `/${SUBSCRIPTIONS}/${platform}/${name}`;
     }
 
     export function usage(platform: string, name: string): string {
@@ -57,11 +57,11 @@ export namespace Endpoint {
 
   export namespace User {
     export function dependencies(login: string): string {
-      return `/${GITHUB}/${login}/${DEPENDENCIES}`
+      return `/${GITHUB}/${login}/${DEPENDENCIES}`;
     }
 
     export function projects(login: string): string {
-      return `/${GITHUB}/${login}/${PROJECTS}`
+      return `/${GITHUB}/${login}/${PROJECTS}`;
     }
   }
 
