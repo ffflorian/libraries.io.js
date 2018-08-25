@@ -1,17 +1,17 @@
 import {URL} from 'url';
 
 import {RequestService} from './RequestService';
-import * as Interfaces from './interfaces/';
-import * as API from './api/';
+import {ClientOptions, LibrariesIOAPI} from './interfaces/';
+import {PlatformAPI, ProjectAPI, RepositoryAPI, UserAPI} from './api/';
 
 export class LibrariesIO {
   private readonly requestService: RequestService;
-  private options: Interfaces.ClientOptions;
-  public api: Interfaces.API;
+  private options: ClientOptions;
+  public api: LibrariesIOAPI;
 
   constructor(apiKey: string);
-  constructor(options: Interfaces.ClientOptions);
-  constructor(options: Interfaces.ClientOptions | string) {
+  constructor(options: ClientOptions);
+  constructor(options: ClientOptions | string) {
     if (typeof options === 'string') {
       options = {apiKey: options};
     }
@@ -25,10 +25,10 @@ export class LibrariesIO {
     this.requestService = new RequestService(options);
 
     this.api = {
-      platform: new API.Platform(this.requestService),
-      project: new API.Project(this.requestService),
-      repository: new API.Repository(this.requestService),
-      user: new API.User(this.requestService),
+      platform: new PlatformAPI(this.requestService),
+      project: new ProjectAPI(this.requestService),
+      repository: new RepositoryAPI(this.requestService),
+      user: new UserAPI(this.requestService),
     };
   }
 

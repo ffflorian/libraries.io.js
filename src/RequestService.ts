@@ -2,13 +2,9 @@ import axios, {AxiosRequestConfig} from 'axios';
 import {URL} from 'url';
 
 import {ExceptionMapper} from './APIException';
-import {ClientOptions} from './interfaces';
+import {Parameters, ClientOptions} from './interfaces';
 
-export type Parameters = {
-  [key: string]: string | boolean | number;
-};
-
-export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+export type HttpMethod = 'DELETE' | 'GET' | 'POST' | 'PUT';
 
 export class RequestService {
   private apiUrl = new URL('https://libraries.io/api');

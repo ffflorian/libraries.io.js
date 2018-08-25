@@ -1,25 +1,19 @@
 import {Endpoint} from '../Endpoint';
 import {RequestService} from '../RequestService';
-import * as Interfaces from '../interfaces/';
+import {Parameters, ProjectRelease} from '../interfaces';
 
-export class User {
+export class UserAPI {
   constructor(private readonly requestService: RequestService) {}
 
-  public getSubscriptions(): Promise<Interfaces.ProjectRelease[]> {
+  public getSubscriptions(): Promise<ProjectRelease[]> {
     const endpoint = Endpoint.subscriptions();
     return this.requestService.get(endpoint);
   }
 
-  public addSubscription(
-    platform: string,
-    projectName: string,
-    includePrerelease = false
-  ): Promise<Interfaces.ProjectRelease> {
+  public addSubscription(platform: string, projectName: string, includePrerelease = false): Promise<ProjectRelease> {
     const endpoint = Endpoint.subscriptions(platform, encodeURIComponent(projectName));
-    const parameters = {
+    const parameters: Parameters = {
       include_prerelease: includePrerelease,
-      name: projectName,
-      platform,
     };
 
     return this.requestService.post(endpoint, parameters);
@@ -27,25 +21,12 @@ export class User {
 
   public async removeSubscription(platform: string, projectName: string): Promise<void> {
     const endpoint = Endpoint.subscriptions(platform, encodeURIComponent(projectName));
-    const parameters = {
-      name: projectName,
-      platform,
-    };
-
-    await this.requestService.delete(endpoint, parameters);
+    await this.requestService.delete(endpoint);
   }
 
-  public updateSubscription(
-    platform: string,
-    projectName: string,
-    includePrerelease = false
-  ): Promise<Interfaces.ProjectRelease> {
+  public updateSubscription(platform: string, projectName: string, includePrerelease = false): Promise<ProjectRelease> {
     const endpoint = Endpoint.subscriptions(platform, encodeURIComponent(projectName));
-    const parameters = {
-      include_prerelease: includePrerelease,
-      name: projectName,
-      platform,
-    };
+    const parameters = {include_prerelease: includePrerelease};
     return this.requestService.put(endpoint, parameters);
   }
 }

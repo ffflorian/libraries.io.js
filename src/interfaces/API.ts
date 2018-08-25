@@ -1,8 +1,8 @@
-import {Platform, Project, User, Repository} from '../api/';
+import {PlatformAPI, ProjectAPI, UserAPI, RepositoryAPI} from '../api/';
 
-export interface API {
-  platform: Platform;
-  project: Project;
-  user: User;
-  repository: Repository;
+export interface LibrariesIOAPI {
+  platform: PlatformAPI;
+  project: ProjectAPI;
+  user: UserAPI;
+  repository: RepositoryAPI;
 }

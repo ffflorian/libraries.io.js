@@ -1,7 +1,7 @@
 import {Endpoint} from '../Endpoint';
 import {RequestService} from '../RequestService';
-import * as Interfaces from '../interfaces/';
+import * as Interfaces from '../interfaces';
 
-export class Repository {
+export class RepositoryAPI {
   constructor(private readonly requestService: RequestService) {}
 }
