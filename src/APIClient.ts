@@ -4,6 +4,8 @@ import {RequestService} from './RequestService';
 import {Endpoint} from './Endpoint';
 import * as Interfaces from './interfaces';
 
+const encode: typeof encodeURIComponent = encodeURIComponent;
+
 export class LibrariesIO {
   private readonly requestService: RequestService;
   private options: Interfaces.ClientOptions;
@@ -34,7 +36,7 @@ export class LibrariesIO {
   }
 
   public project(platform: string, name: string): Promise<Interfaces.Project> {
-    const endpoint = Endpoint.Project.project(platform, name);
+    const endpoint = Endpoint.Project.project(encode(platform), encode(name));
     const parameters = {
       platform,
       name
