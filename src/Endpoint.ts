@@ -13,51 +13,56 @@ export namespace Endpoint {
 
   export namespace Project {
     export function contributors(platform: string, name: string): string {
-      return `/${platform}/${name}/${CONTRIBUTORS}`;
+
+      return `/${encodeURIComponent(platform)}/${encodeURIComponent(name)}/${CONTRIBUTORS}`;
     }
 
     export function dependencies(platform: string, name: string, version: string): string {
-      return `/${platform}/${name}/${version}/${DEPENDENCIES}`;
+      return `/${encodeURIComponent(platform)}/${encodeURIComponent(name)}/${encodeURIComponent(version)}/${DEPENDENCIES}`;
     }
 
     export function dependentRepositories(platform: string, name: string): string {
-      return `/${platform}/${name}/${DEPENDENT_REPOSITORIES}`;
+      return `/${encodeURIComponent(platform)}/${encodeURIComponent(name)}/${DEPENDENT_REPOSITORIES}`;
     }
 
     export function dependents(platform: string, name: string): string {
-      return `/${platform}/${name}/${DEPENDENTS}`;
+      return `/${encodeURIComponent(platform)}/${encodeURIComponent(name)}/${DEPENDENTS}`;
     }
 
     export function sourceRank(platform: string, name: string): string {
-      return `/${platform}/${name}/${SOURCERANK}`;
+      return `/${encodeURIComponent(platform)}/${encodeURIComponent(name)}/${SOURCERANK}`;
     }
 
     export function subscriptions(platform: string, name: string): string {
-      return `/${SUBSCRIPTIONS}/${platform}/${name}`
+      return `/${SUBSCRIPTIONS}/${encodeURIComponent(platform)}/${encodeURIComponent(name)}`
     }
 
     export function usage(platform: string, name: string): string {
-      return `/${platform}/${name}/${USAGE}`;
+      return `/${encodeURIComponent(platform)}/${encodeURIComponent(name)}/${USAGE}`;
+    }
+
+    export function project(platform: string, name: string): string {
+      return `/${encodeURIComponent(platform)}/${encodeURIComponent(name)}`;
     }
   }
 
   export namespace Repository {
     export function dependencies(owner: string, name: string): string {
-      return `/${GITHUB}/${owner}/${name}/${DEPENDENCIES}`;
+      return `/${GITHUB}/${encodeURIComponent(owner)}/${encodeURIComponent(name)}/${DEPENDENCIES}`;
     }
 
     export function projects(owner: string, name: string): string {
-      return `/${GITHUB}/${owner}/${name}/${PROJECTS}`;
+      return `/${GITHUB}/${encodeURIComponent(owner)}/${encodeURIComponent(name)}/${PROJECTS}`;
     }
   }
 
   export namespace User {
     export function dependencies(login: string): string {
-      return `/${GITHUB}/${login}/${DEPENDENCIES}`
+      return `/${GITHUB}/${encodeURIComponent(login)}/${DEPENDENCIES}`
     }
 
     export function projects(login: string): string {
-      return `/${GITHUB}/${login}/${PROJECTS}`
+      return `/${GITHUB}/${encodeURIComponent(login)}/${PROJECTS}`
     }
   }
 
