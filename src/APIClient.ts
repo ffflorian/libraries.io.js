@@ -36,7 +36,7 @@ export class LibrariesIO {
   }
 
   /**
-   * Set a different API URL.
+   * Set a new API URL.
    * @param newUrl The new API url
    */
   public setApiUrl(newUrl: URL): void {
