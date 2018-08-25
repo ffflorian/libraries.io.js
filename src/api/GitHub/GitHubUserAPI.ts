@@ -36,6 +36,13 @@ export class GitHubUserAPI {
 
   public getDependencies(userName: string, platform?: string): Promise<Repository[]> {
     const endpoint = Endpoint.GitHub.User.contributedRepositories(userName);
-    return this.requestService.get(endpoint);
+
+    let parameters = {};
+
+    if (platform) {
+      parameters = {platform}
+    }
+
+    return this.requestService.get(endpoint, parameters);
   }
 }
