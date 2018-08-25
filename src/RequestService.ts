@@ -35,6 +35,8 @@ export class RequestService {
       url: this.apiUrl.toString() + endpoint,
     };
 
+    console.log({config});
+
     try {
       const response = await axios.request<T>(config);
       return response.data;

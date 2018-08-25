@@ -1,7 +1,6 @@
 import {URL} from 'url';
 
 import {RequestService} from './RequestService';
-import {Endpoint} from './Endpoint';
 import * as Interfaces from './interfaces/';
 import * as API from './api/';
 
@@ -26,21 +25,10 @@ export class LibrariesIO {
     this.requestService = new RequestService(options);
 
     this.api = {
+      platform: new API.Platform(this.requestService),
       project: new API.Project(this.requestService),
       repository: new API.Repository(this.requestService),
       user: new API.User(this.requestService),
-      getPlatforms: () => {
-        const endpoint = Endpoint.platforms();
-        return this.requestService.get<Interfaces.Platform>(endpoint);
-      },
-      getProject: (platform: string, name: string) => {
-        const endpoint = Endpoint.Project.project(encodeURIComponent(platform), encodeURIComponent(name));
-        const parameters = {
-          platform,
-          name,
-        };
-        return this.requestService.get(endpoint, parameters);
-      },
     };
   }
 
