@@ -21,24 +21,6 @@ export class RequestService {
     return this.request<T>('DELETE', endpoint, parameters);
   }
 
-  public async request<T>(method: HttpMethod, endpoint: string, parameters?: RequestParameters): Promise<T> {
-    const config: AxiosRequestConfig = {
-      method,
-      params: {
-        ...parameters,
-        api_key: this.apiKey,
-      },
-      url: this.apiUrl.toString() + endpoint,
-    };
-
-    try {
-      const response = await axios.request<T>(config);
-      return response.data;
-    } catch (error) {
-      throw ExceptionMapper(error);
-    }
-  }
-
   public get<T>(endpoint: string, parameters?: RequestParameters): Promise<T> {
     return this.request<T>('GET', endpoint, parameters);
   }
@@ -56,6 +38,24 @@ export class RequestService {
       this.apiUrl = new URL(newUrl);
     } else {
       this.apiUrl = newUrl;
+    }
+  }
+
+  private async request<T>(method: HttpMethod, endpoint: string, parameters?: RequestParameters): Promise<T> {
+    const config: AxiosRequestConfig = {
+      method,
+      params: {
+        ...parameters,
+        api_key: this.apiKey,
+      },
+      url: this.apiUrl.toString() + endpoint,
+    };
+
+    try {
+      const response = await axios.request<T>(config);
+      return response.data;
+    } catch (error) {
+      throw ExceptionMapper(error);
     }
   }
 }
