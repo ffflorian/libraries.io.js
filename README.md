@@ -4,6 +4,8 @@ A [libraries.io](https://libraries.io) API client. For a documentation on the AP
 
 ## Usage
 
+A complete documentation is available at https://ffflorian.github.io/libraries.io.js/.
+
 ```ts
 import {LibrariesIO} from 'libraries.io';
 
