@@ -3,7 +3,11 @@ import {RequestService} from '../RequestService';
 import * as Interfaces from '../interfaces';
 
 export class PlatformAPI {
-  constructor(private readonly requestService: RequestService) {}
+  private readonly requestService: RequestService;
+
+  constructor(requestService: RequestService) {
+    this.requestService = requestService;
+  }
 
   getPlatforms(): Promise<Interfaces.Platform> {
     const endpoint = Endpoint.platforms();

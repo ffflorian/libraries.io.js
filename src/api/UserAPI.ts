@@ -3,7 +3,11 @@ import {RequestService} from '../RequestService';
 import {Parameters, ProjectRelease} from '../interfaces';
 
 export class UserAPI {
-  constructor(private readonly requestService: RequestService) {}
+  private readonly requestService: RequestService;
+
+  constructor(requestService: RequestService) {
+    this.requestService = requestService;
+  }
 
   public getSubscriptions(): Promise<ProjectRelease[]> {
     const endpoint = Endpoint.subscriptions();
