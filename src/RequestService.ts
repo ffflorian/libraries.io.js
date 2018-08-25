@@ -2,7 +2,7 @@ import axios, {AxiosRequestConfig} from 'axios';
 import {URL} from 'url';
 
 import {ExceptionMapper} from './APIException';
-import {Parameters, ClientOptions} from './interfaces';
+import {RequestParameters, ClientOptions} from './interfaces';
 
 export type HttpMethod = 'DELETE' | 'GET' | 'POST' | 'PUT';
 
@@ -17,11 +17,11 @@ export class RequestService {
     this.apiKey = options.apiKey;
   }
 
-  public delete<T>(endpoint: string, parameters?: Parameters): Promise<T> {
+  public delete<T>(endpoint: string, parameters?: RequestParameters): Promise<T> {
     return this.request<T>('DELETE', endpoint, parameters);
   }
 
-  public async request<T>(method: HttpMethod, endpoint: string, parameters?: Parameters): Promise<T> {
+  public async request<T>(method: HttpMethod, endpoint: string, parameters?: RequestParameters): Promise<T> {
     const config: AxiosRequestConfig = {
       method,
       params: {
@@ -31,8 +31,6 @@ export class RequestService {
       url: this.apiUrl.toString() + endpoint,
     };
 
-    console.log({config});
-
     try {
       const response = await axios.request<T>(config);
       return response.data;
@@ -41,15 +39,15 @@ export class RequestService {
     }
   }
 
-  public get<T>(endpoint: string, parameters?: Parameters): Promise<T> {
+  public get<T>(endpoint: string, parameters?: RequestParameters): Promise<T> {
     return this.request<T>('GET', endpoint, parameters);
   }
 
-  public post<T>(endpoint: string, parameters?: Parameters): Promise<T> {
+  public post<T>(endpoint: string, parameters?: RequestParameters): Promise<T> {
     return this.request<T>('POST', endpoint, parameters);
   }
 
-  public put<T>(endpoint: string, parameters?: Parameters): Promise<T> {
+  public put<T>(endpoint: string, parameters?: RequestParameters): Promise<T> {
     return this.request<T>('PUT', endpoint, parameters);
   }
 

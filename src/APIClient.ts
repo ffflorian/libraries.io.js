@@ -1,13 +1,13 @@
 import {URL} from 'url';
 
 import {RequestService} from './RequestService';
-import {ClientOptions, LibrariesIOAPI} from './interfaces/';
+import {ClientOptions, API} from './interfaces/';
 import {PlatformAPI, ProjectAPI, RepositoryAPI, UserAPI} from './api/';
 
 export class LibrariesIO {
   private readonly requestService: RequestService;
   private options: ClientOptions;
-  public api: LibrariesIOAPI;
+  public api: API;
 
   constructor(apiKey: string);
   constructor(options: ClientOptions);

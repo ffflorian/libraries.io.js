@@ -11,57 +11,63 @@ export namespace Endpoint {
   const SUBSCRIPTIONS = 'subscriptions';
   const USAGE = 'usage';
 
+  const encode: typeof encodeURIComponent = encodeURIComponent;
+
   export namespace Project {
     export function contributors(platform: string, name: string): string {
-      return `/${platform}/${name}/${CONTRIBUTORS}`;
+      return `/${encode(platform)}/${encode(name)}/${CONTRIBUTORS}`;
     }
 
     export function dependencies(platform: string, name: string, version: string): string {
-      return `/${platform}/${name}/${version}/${DEPENDENCIES}`;
+      return `/${encode(platform)}/${encode(name)}/${encode(version)}/${DEPENDENCIES}`;
     }
 
     export function dependentRepositories(platform: string, name: string): string {
-      return `/${platform}/${name}/${DEPENDENT_REPOSITORIES}`;
+      return `/${encode(platform)}/${encode(name)}/${DEPENDENT_REPOSITORIES}`;
     }
 
     export function dependents(platform: string, name: string): string {
-      return `/${platform}/${name}/${DEPENDENTS}`;
+      return `/${encode(platform)}/${encode(name)}/${DEPENDENTS}`;
+    }
+
+    export function search(): string {
+      return `/${SEARCH}`;
     }
 
     export function sourceRank(platform: string, name: string): string {
-      return `/${platform}/${name}/${SOURCERANK}`;
+      return `/${encode(platform)}/${encode(name)}/${SOURCERANK}`;
     }
 
     export function subscriptions(platform: string, name: string): string {
-      return `/${SUBSCRIPTIONS}/${platform}/${name}`;
+      return `/${SUBSCRIPTIONS}/${encode(platform)}/${encode(name)}`;
     }
 
     export function usage(platform: string, name: string): string {
-      return `/${platform}/${name}/${USAGE}`;
+      return `/${encode(platform)}/${encode(name)}/${USAGE}`;
     }
 
     export function project(platform: string, name: string): string {
-      return `/${platform}/${name}`;
+      return `/${encode(platform)}/${encode(name)}`;
     }
   }
 
   export namespace Repository {
     export function dependencies(owner: string, name: string): string {
-      return `/${owner}/${name}/${DEPENDENCIES}`;
+      return `/${encode(owner)}/${encode(name)}/${DEPENDENCIES}`;
     }
 
     export function projects(owner: string, name: string): string {
-      return `/${owner}/${name}/${PROJECTS}`;
+      return `/${encode(owner)}/${encode(name)}/${PROJECTS}`;
     }
   }
 
   export namespace GitHub {
     export function dependencies(login: string): string {
-      return `/${GITHUB}/${login}/${DEPENDENCIES}`;
+      return `/${GITHUB}/${encode(login)}/${DEPENDENCIES}`;
     }
 
     export function projects(login: string): string {
-      return `/${GITHUB}/${login}/${PROJECTS}`;
+      return `/${GITHUB}/${encode(login)}/${PROJECTS}`;
     }
   }
 
@@ -69,16 +75,12 @@ export namespace Endpoint {
     return `/${PLATFORMS}`;
   }
 
-  export function search(): string {
-    return `/${SEARCH}`;
-  }
-
   export function subscriptions(platform: string, name: string): string;
   export function subscriptions(): string;
   export function subscriptions(platform?: string, name?: string): string {
     let endpoint = `/${SUBSCRIPTIONS}`;
     if (platform && name) {
-      endpoint += `/${platform}/${name}`;
+      endpoint += `/${encode(platform)}/${encode(name)}`;
     }
     return endpoint;
   }
