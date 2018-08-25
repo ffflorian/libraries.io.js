@@ -25,12 +25,12 @@ export interface PreReleaseOptions {
   includePreRelease?: boolean;
 }
 
-export interface PageOptions {
+export interface PaginationOptions {
   page?: number;
   perPage?: number;
 }
 
-export interface SearchOptions extends PageOptions {
+export interface SearchOptions extends PaginationOptions {
   sortBy?: SortType;
   filter?: FilterOptions;
 }

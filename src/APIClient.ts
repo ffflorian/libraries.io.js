@@ -2,7 +2,7 @@ import {URL} from 'url';
 
 import {RequestService} from './RequestService';
 import {ClientOptions, API} from './interfaces/';
-import {GitHubAPI, PlatformAPI, ProjectAPI, UserAPI} from './api/';
+import {GitHubRepositoryAPI, GitHubUserAPI, PlatformAPI, ProjectAPI, UserAPI} from './api/';
 
 export class LibrariesIO {
   private readonly requestService: RequestService;
@@ -25,13 +25,20 @@ export class LibrariesIO {
     this.requestService = new RequestService(options);
 
     this.api = {
-      github: new GitHubAPI(this.requestService),
+      github: {
+        repository: new GitHubRepositoryAPI(this.requestService),
+        user: new GitHubUserAPI(this.requestService),
+      },
       platform: new PlatformAPI(this.requestService),
       project: new ProjectAPI(this.requestService),
       user: new UserAPI(this.requestService),
     };
   }
 
+  /**
+   * Set a different API URL.
+   * @param newUrl The new API url
+   */
   public setApiUrl(newUrl: URL): void {
     this.requestService.setApiUrl(newUrl);
   }

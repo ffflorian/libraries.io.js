@@ -1,6 +1,6 @@
 import {Endpoint} from '../../Endpoints';
 import {RequestService} from '../../RequestService';
-import {Contributor, PageOptions, Project, Repository, RequestOptions} from '../../interfaces/';
+import {Contributor, PaginationOptions, Project, Repository, RequestOptions} from '../../interfaces/';
 
 export class GitHubUserAPI {
   private readonly requestService: RequestService;
@@ -9,37 +9,73 @@ export class GitHubUserAPI {
     this.requestService = requestService;
   }
 
+  /**
+   * Get information for a given user or organization.
+   * @see https://libraries.io/api#user
+   * @param userName The username
+   */
   public getUser(userName: string): Promise<Contributor> {
     const endpoint = Endpoint.GitHub.User.user(userName);
     return this.requestService.get(endpoint);
   }
 
-  public getRepositories(userName: string, options?: PageOptions): Promise<Repository[]> {
+  /**
+   * Get repositories owned by a user.
+   * @see https://libraries.io/api#user-repositories
+   * @param userName The username
+   * @param options Pagination options
+   */
+  public getRepositories(userName: string, options?: PaginationOptions): Promise<Repository[]> {
     const endpoint = Endpoint.GitHub.User.repositories(userName);
     return this.requestService.get(endpoint, options);
   }
 
-  public getProjects(userName: string, options?: PageOptions): Promise<Project[]> {
+  /**
+   * Get a list of packages referencing the given user's repositories.
+   * @see https://libraries.io/api#user-projects
+   * @param userName The username
+   * @param options Pagination options
+   */
+  public getProjects(userName: string, options?: PaginationOptions): Promise<Project[]> {
     const endpoint = Endpoint.GitHub.User.repositories(userName);
     return this.requestService.get(endpoint, options);
   }
 
-  public getContributedProjects(userName: string, options?: PageOptions): Promise<Project[]> {
+  /**
+   * Get a list of packages that the given user has contributed to.
+   * @see https://libraries.io/api#user-project-contributions
+   * @param userName The username
+   * @param options Pagination options
+   */
+  public getContributedProjects(userName: string, options?: PaginationOptions): Promise<Project[]> {
     const endpoint = Endpoint.GitHub.User.contributedProjects(userName);
     return this.requestService.get(endpoint, options);
   }
 
-  public getContributedRepositories(userName: string, options?: PageOptions): Promise<Repository[]> {
+  /**
+   * Get a list of repositories that the given user has contributed to.
+   * @see https://libraries.io/api#user-repository-contributions
+   * @param userName The username
+   * @param options Pagination options
+   */
+  public getContributedRepositories(userName: string, options?: PaginationOptions): Promise<Repository[]> {
     const endpoint = Endpoint.GitHub.User.contributedRepositories(userName);
     return this.requestService.get(endpoint, options);
   }
 
-  public getDependencies(userName: string, options?: PageOptions): Promise<Project[]>;
-  public getDependencies(userName: string, platform?: string, options?: PageOptions): Promise<Project[]>;
+  public getDependencies(userName: string, options?: PaginationOptions): Promise<Project[]>;
+  public getDependencies(userName: string, platform?: string, options?: PaginationOptions): Promise<Project[]>;
+  /**
+   * Get a list of unique packages that the given user's repositories list as a dependency. Ordered by frequency of use in those repositories.
+   * @see https://libraries.io/api#user-dependencies
+   * @param userName The username
+   * @param platform The project platform (e.g. "npm", "cargo", ...)
+   * @param options Pagination options
+   */
   public getDependencies(
     userName: string,
-    platformOrOptions?: string | PageOptions,
-    options?: PageOptions
+    platformOrOptions?: string | PaginationOptions,
+    options?: PaginationOptions
   ): Promise<Project[]> {
     const endpoint = Endpoint.GitHub.User.contributedRepositories(userName);
     let parameters: RequestOptions = {};

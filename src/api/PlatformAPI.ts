@@ -1,6 +1,6 @@
 import {Endpoint} from '../Endpoints';
 import {RequestService} from '../RequestService';
-import {Platform, PageOptions} from '../interfaces/';
+import {Platform, PaginationOptions} from '../interfaces/';
 
 export class PlatformAPI {
   private readonly requestService: RequestService;
@@ -9,7 +9,12 @@ export class PlatformAPI {
     this.requestService = requestService;
   }
 
-  getPlatforms(options?: PageOptions): Promise<Platform[]> {
+  /**
+   * Get list of supported package managers.
+   * @see https://libraries.io/api#platforms
+   * @param options Pagination options
+   */
+  public getPlatforms(options?: PaginationOptions): Promise<Platform[]> {
     const endpoint = Endpoint.platforms();
     return this.requestService.get(endpoint, options);
   }

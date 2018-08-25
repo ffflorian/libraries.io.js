@@ -4,3 +4,4 @@ export * from './Options';
 export * from './Platform';
 export * from './Project';
 export * from './Repository';
+export * from './Subscription';
