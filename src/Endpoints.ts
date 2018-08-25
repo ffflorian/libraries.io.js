@@ -104,12 +104,12 @@ export namespace Endpoint {
     return `/${PLATFORMS}/`;
   }
 
-  export function subscriptions(platform: string, name: string): string;
   export function subscriptions(): string;
+  export function subscriptions(platform: string, name: string): string;
   export function subscriptions(platform?: string, name?: string): string {
     let endpoint = `/${SUBSCRIPTIONS}/`;
     if (platform && name) {
-      endpoint += `/${encode(platform)}/${encode(name)}/`;
+      endpoint += `${encode(platform)}/${encode(name)}/`;
     }
     return endpoint;
   }
