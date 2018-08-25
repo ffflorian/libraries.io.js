@@ -1,6 +1,6 @@
 //@ts-check
 
-const {Endpoint} = require('../dist/Endpoint');
+const {Endpoint} = require('../dist/Endpoints');
 
 describe('Endpoint', () => {
   it('concats platform and name', () => {
@@ -8,6 +8,6 @@ describe('Endpoint', () => {
     const name = 'grunt';
 
     const endpoint = Endpoint.Project.contributors(platform, name);
-    expect(endpoint).toBe('/npm/grunt/contributors');
+    expect(endpoint).toBe('/npm/grunt/contributors/');
   });
 });
