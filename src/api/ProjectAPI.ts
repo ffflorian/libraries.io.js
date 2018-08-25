@@ -23,7 +23,7 @@ export class ProjectAPI {
     return this.requestService.get(endpoint);
   }
 
-  public getDependendents(platform: string, projectName: string): Promise<Interfaces.Project[]> {
+  public getDependendentProjects(platform: string, projectName: string): Promise<Interfaces.Project[]> {
     const endpoint = Endpoint.Project.dependents(platform, projectName);
     return this.requestService.get(endpoint);
   }

@@ -5,7 +5,10 @@ export namespace Endpoint {
   const DEPENDENTS = 'dependents';
   const GITHUB = 'github';
   const PLATFORMS = 'platforms';
+  const PROJECT_CONTRIBUTIONS = 'project-contributions';
   const PROJECTS = 'projects';
+  const REPOSITORIES = 'repositories';
+  const REPOSITORY_CONTRIBUTIONS = 'repository-contributions';
   const SEARCH = 'search';
   const SOURCERANK = 'sourcerank';
   const SUBSCRIPTIONS = 'subscriptions';
@@ -66,8 +69,28 @@ export namespace Endpoint {
       return `/${GITHUB}/${encode(login)}/${DEPENDENCIES}`;
     }
 
+    export function packages(login: string): string {
+      return `/${GITHUB}/${encode(login)}/${PROJECTS}`;
+    }
+
     export function projects(login: string): string {
       return `/${GITHUB}/${encode(login)}/${PROJECTS}`;
+    }
+
+    export function projectContributions(login: string): string {
+      return `/${GITHUB}/${encode(login)}/${PROJECT_CONTRIBUTIONS}`;
+    }
+
+    export function repositories(login: string): string {
+      return `/${GITHUB}/${encode(login)}/${REPOSITORIES}`;
+    }
+
+    export function repositoryContributions(login: string): string {
+      return `/${GITHUB}/${encode(login)}/${REPOSITORY_CONTRIBUTIONS}`;
+    }
+
+    export function user(login: string): string {
+      return `/${GITHUB}/${encode(login)}`;
     }
   }
 
