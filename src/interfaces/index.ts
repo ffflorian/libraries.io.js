@@ -1,4 +1,5 @@
 export * from './ClientOptions';
+export * from './Endpoint';
 export * from './Platform';
 export * from './Project';
 export * from './ProjectDependencies';

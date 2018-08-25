@@ -15,13 +15,13 @@ export class RequestService {
     this.apiKey = options.apiKey;
   }
 
-  async request(path: string, config?: AxiosRequestConfig): Promise<any> {
+  async request<T>(path: string, config?: AxiosRequestConfig): Promise<T> {
     config = {
       ...config,
       baseURL: this.apiUrl.toString(),
     }
     try {
-      const response = await axios.get(this.apiUrl.toString() + path, config);
+      const response = await axios.get<T>(this.apiUrl.toString() + path, config);
       return response.data;
     } catch (error) {
       throw ExceptionMapper(error);

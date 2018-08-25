@@ -1,7 +1,7 @@
 import {URL} from 'url';
 
 import {RequestService} from './RequestService';
-import {ClientOptions} from './interfaces';
+import {ClientOptions, Endpoint, Platform} from './interfaces';
 
 export class LibrariesIO {
   private readonly requestService: RequestService;
@@ -17,7 +17,7 @@ export class LibrariesIO {
     this.options = options;
 
     if (!this.options.apiKey) {
-      throw new Error('An API key needs to be set to use the client.');
+      throw new Error('An API key needs to be set in order to use the client.');
     }
 
     this.requestService = new RequestService(options);
@@ -25,5 +25,10 @@ export class LibrariesIO {
 
   setApiUrl(newUrl: string | URL): void {
     this.requestService.setApiUrl(newUrl);
+  }
+
+  async platforms(): Promise<Platform> {
+    const endpoint = Endpoint.platforms();
+    return this.requestService.request<Platform>(endpoint);
   }
 }
