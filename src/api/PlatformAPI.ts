@@ -1,6 +1,6 @@
 import {Endpoint} from '../Endpoints';
 import {RequestService} from '../RequestService';
-import * as Interfaces from '../interfaces/';
+import {Platform, PageOptions} from '../interfaces/';
 
 export class PlatformAPI {
   private readonly requestService: RequestService;
@@ -9,8 +9,8 @@ export class PlatformAPI {
     this.requestService = requestService;
   }
 
-  getPlatforms(): Promise<Interfaces.Platform> {
+  getPlatforms(options?: PageOptions): Promise<Platform[]> {
     const endpoint = Endpoint.platforms();
-    return this.requestService.get(endpoint);
+    return this.requestService.get(endpoint, options);
   }
 }

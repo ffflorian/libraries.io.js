@@ -16,11 +16,10 @@ export class GitHubRepositoryAPI {
 
   public getRepositoryWithDependencies(
     repositoryOwner: string,
-    repositoryName: string,
-    options?: PageOptions
-  ): Promise<RepositoryWithDependencies[]> {
+    repositoryName: string
+  ): Promise<RepositoryWithDependencies> {
     const endpoint = Endpoint.GitHub.Repository.dependencies(repositoryOwner, repositoryName);
-    return this.requestService.get(endpoint, options);
+    return this.requestService.get(endpoint);
   }
 
   public getProjects(repositoryOwner: string, repositoryName: string, options?: PageOptions): Promise<Project[]> {

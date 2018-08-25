@@ -1,6 +1,14 @@
 import {Endpoint} from '../Endpoints';
 import {RequestService} from '../RequestService';
-import * as Interfaces from '../interfaces/';
+import {
+  Contributor,
+  PageOptions,
+  Project,
+  ProjectUsage,
+  ProjectWithDependencies,
+  Repository,
+  SearchOptions,
+} from '../interfaces/';
 
 export class ProjectAPI {
   private readonly requestService: RequestService;
@@ -9,7 +17,7 @@ export class ProjectAPI {
     this.requestService = requestService;
   }
 
-  public getProject(platform: string, projectName: string): Promise<Interfaces.Project> {
+  public getProject(platform: string, projectName: string): Promise<Project> {
     const endpoint = Endpoint.Project.project(platform, projectName);
     return this.requestService.get(endpoint);
   }
@@ -18,16 +26,12 @@ export class ProjectAPI {
     platform: string,
     projectName: string,
     projectVersion: string
-  ): Promise<Interfaces.ProjectWithDependencies> {
+  ): Promise<ProjectWithDependencies> {
     const endpoint = Endpoint.Project.dependencies(platform, projectName, projectVersion);
     return this.requestService.get(endpoint);
   }
 
-  public getDependendentProjects(
-    platform: string,
-    projectName: string,
-    options?: Interfaces.PageOptions
-  ): Promise<Interfaces.Project[]> {
+  public getDependendentProjects(platform: string, projectName: string, options?: PageOptions): Promise<Project[]> {
     const endpoint = Endpoint.Project.dependents(platform, projectName);
     return this.requestService.get(endpoint, options);
   }
@@ -35,17 +39,13 @@ export class ProjectAPI {
   public getDependendentRepositories(
     platform: string,
     projectName: string,
-    options?: Interfaces.PageOptions
-  ): Promise<Interfaces.Repository[]> {
+    options?: PageOptions
+  ): Promise<Repository[]> {
     const endpoint = Endpoint.Project.dependents(platform, projectName);
     return this.requestService.get(endpoint, options);
   }
 
-  public getContributors(
-    platform: string,
-    projectName: string,
-    options?: Interfaces.PageOptions
-  ): Promise<Interfaces.Contributor[]> {
+  public getContributors(platform: string, projectName: string, options?: PageOptions): Promise<Contributor[]> {
     const endpoint = Endpoint.Project.dependents(platform, projectName);
     return this.requestService.get(endpoint, options);
   }
@@ -55,12 +55,12 @@ export class ProjectAPI {
     return this.requestService.get(endpoint);
   }
 
-  public getUsage(platform: string, projectName: string): Promise<Interfaces.ProjectUsage> {
+  public getUsage(platform: string, projectName: string): Promise<ProjectUsage> {
     const endpoint = Endpoint.Project.sourceRank(platform, projectName);
     return this.requestService.get(endpoint);
   }
 
-  public search(query: string, options?: Interfaces.SearchOptions): Promise<Interfaces.Project[]> {
+  public search(query: string, options?: SearchOptions): Promise<Project[]> {
     const endpoint = Endpoint.Project.search();
     return this.requestService.get(endpoint, {...options, query});
   }
