@@ -82,7 +82,7 @@ export namespace Endpoint {
         return `/${GITHUB}/${encode(login)}/${PROJECTS}`;
       }
 
-      export function projectContributions(login: string): string {
+      export function contributedProjects(login: string): string {
         return `/${GITHUB}/${encode(login)}/${PROJECT_CONTRIBUTIONS}`;
       }
 
@@ -90,7 +90,7 @@ export namespace Endpoint {
         return `/${GITHUB}/${encode(login)}/${REPOSITORIES}`;
       }
 
-      export function repositoryContributions(login: string): string {
+      export function contributedRepositories(login: string): string {
         return `/${GITHUB}/${encode(login)}/${REPOSITORY_CONTRIBUTIONS}`;
       }
 

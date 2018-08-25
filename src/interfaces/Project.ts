@@ -1,6 +1,3 @@
-import {ProjectVersion} from 'interfaces/ProjectVersion';
-import {ProjectRelease} from 'interfaces/ProjectRelease';
-
 export interface Project {
   dependent_repos_count: number;
   dependents_count: number;
@@ -22,4 +19,43 @@ export interface Project {
   stars: number;
   status: string | null;
   versions: ProjectVersion[];
+}
+
+export interface ProjectWithDependencies extends Project {
+  dependencies_for_version: string;
+  dependencies: ProjectDependency[];
+  dependent_repos_count: number;
+  dependents_count: number;
+}
+
+export interface ProjectDependency {
+  deprecated: boolean;
+  filepath: string | null;
+  kind: 'Development' | 'runtime' | 'Optional';
+  latest_stable: string;
+  latest: string;
+  name: string;
+  outdated: boolean;
+  platform: string;
+  project_name: string;
+  requirements: string;
+}
+
+export interface ProjectRelease {
+  created_at: string;
+  id: number;
+  number: string;
+  project_id: number;
+  published_at: string;
+  runtime_dependencies_count: number | null;
+  updated_at: string;
+}
+
+export interface ProjectUsage {
+  [version: string]: number;
+}
+
+export interface ProjectVersion {
+  published_at: string;
+  number: string;
 }

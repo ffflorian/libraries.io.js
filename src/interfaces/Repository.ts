@@ -1,3 +1,5 @@
+import {ProjectDependency} from 'interfaces/Project';
+
 export interface Repository {
   contributions_count: number | null;
   created_at: string;
@@ -42,4 +44,8 @@ export interface Repository {
   subscribers_count: number;
   updated_at: string;
   uuid: string;
+}
+
+export interface RepositoryWithDependencies extends Repository {
+  dependencies: ProjectDependency[];
 }

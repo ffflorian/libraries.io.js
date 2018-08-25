@@ -9,10 +9,9 @@ export class UserAPI {
     this.requestService = requestService;
   }
 
-  public addSubscription(platform: string, projectName: string, includePrerelease = false): Promise<ProjectRelease> {
+  public getSubscribedProject(platform: string, projectName: string): Promise<ProjectRelease[] | null> {
     const endpoint = Endpoint.subscriptions(platform, projectName);
-    const parameters = {include_prerelease: includePrerelease};
-    return this.requestService.post(endpoint, parameters);
+    return this.requestService.get(endpoint);
   }
 
   public getSubscriptions(): Promise<ProjectRelease[]> {
@@ -20,7 +19,13 @@ export class UserAPI {
     return this.requestService.get(endpoint);
   }
 
-  public async removeSubscription(platform: string, projectName: string): Promise<void> {
+  public subscribe(platform: string, projectName: string, includePrerelease = false): Promise<ProjectRelease> {
+    const endpoint = Endpoint.subscriptions(platform, projectName);
+    const parameters = {include_prerelease: includePrerelease};
+    return this.requestService.post(endpoint, parameters);
+  }
+
+  public async unsubscribe(platform: string, projectName: string): Promise<void> {
     const endpoint = Endpoint.subscriptions(platform, projectName);
     await this.requestService.delete(endpoint);
   }

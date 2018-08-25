@@ -43,7 +43,7 @@ export class ProjectAPI {
     return this.requestService.get(endpoint);
   }
 
-  public getUsage(platform: string, projectName: string): Promise<Interfaces.Usage> {
+  public getUsage(platform: string, projectName: string): Promise<Interfaces.ProjectUsage> {
     const endpoint = Endpoint.Project.sourceRank(platform, projectName);
     return this.requestService.get(endpoint);
   }
