@@ -2,13 +2,15 @@ import {URL} from 'url';
 
 import {RequestService} from './RequestService';
 import {Endpoint} from './Endpoint';
-import * as Interfaces from './interfaces';
+import * as Interfaces from './interfaces/';
+import * as API from './api/';
 
 const encode: typeof encodeURIComponent = encodeURIComponent;
 
 export class LibrariesIO {
   private readonly requestService: RequestService;
   private options: Interfaces.ClientOptions;
+  public api: Interfaces.API;
 
   constructor(apiKey: string);
   constructor(options: Interfaces.ClientOptions);
@@ -24,18 +26,24 @@ export class LibrariesIO {
     }
 
     this.requestService = new RequestService(options);
+
+    this.api = {
+      project: new API.Project(this.requestService),
+      repository: new API.Repository(this.requestService),
+      user: new API.User(this.requestService),
+    }
   }
 
   public setApiUrl(newUrl: string | URL): void {
     this.requestService.setApiUrl(newUrl);
   }
 
-  public platforms(): Promise<Interfaces.Platform> {
+  public getPlatforms(): Promise<Interfaces.Platform> {
     const endpoint = Endpoint.platforms();
     return this.requestService.request<Interfaces.Platform>(endpoint);
   }
 
-  public project(platform: string, name: string): Promise<Interfaces.Project> {
+  public getProject(platform: string, name: string): Promise<Interfaces.Project> {
     const endpoint = Endpoint.Project.project(encode(platform), encode(name));
     const parameters = {
       platform,
