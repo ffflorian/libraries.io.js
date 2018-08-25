@@ -54,43 +54,49 @@ export namespace Endpoint {
     }
   }
 
-  export namespace Repository {
-    export function dependencies(owner: string, name: string): string {
-      return `/${encode(owner)}/${encode(name)}/${DEPENDENCIES}`;
-    }
-
-    export function projects(owner: string, name: string): string {
-      return `/${encode(owner)}/${encode(name)}/${PROJECTS}`;
-    }
-  }
-
   export namespace GitHub {
-    export function dependencies(login: string): string {
-      return `/${GITHUB}/${encode(login)}/${DEPENDENCIES}`;
+    export namespace Repository {
+      export function dependencies(owner: string, name: string): string {
+        return `/${GITHUB}/${encode(owner)}/${encode(name)}/${DEPENDENCIES}`;
+      }
+
+      export function projects(owner: string, name: string): string {
+        return `/${GITHUB}/${encode(owner)}/${encode(name)}/${PROJECTS}`;
+      }
+
+      export function repository(owner: string, name: string): string {
+        return `/${GITHUB}/${encode(owner)}/${encode(name)}`;
+      }
     }
 
-    export function packages(login: string): string {
-      return `/${GITHUB}/${encode(login)}/${PROJECTS}`;
-    }
+    export namespace User {
+      export function dependencies(login: string): string {
+        return `/${GITHUB}/${encode(login)}/${DEPENDENCIES}`;
+      }
 
-    export function projects(login: string): string {
-      return `/${GITHUB}/${encode(login)}/${PROJECTS}`;
-    }
+      export function packages(login: string): string {
+        return `/${GITHUB}/${encode(login)}/${PROJECTS}`;
+      }
 
-    export function projectContributions(login: string): string {
-      return `/${GITHUB}/${encode(login)}/${PROJECT_CONTRIBUTIONS}`;
-    }
+      export function projects(login: string): string {
+        return `/${GITHUB}/${encode(login)}/${PROJECTS}`;
+      }
 
-    export function repositories(login: string): string {
-      return `/${GITHUB}/${encode(login)}/${REPOSITORIES}`;
-    }
+      export function projectContributions(login: string): string {
+        return `/${GITHUB}/${encode(login)}/${PROJECT_CONTRIBUTIONS}`;
+      }
 
-    export function repositoryContributions(login: string): string {
-      return `/${GITHUB}/${encode(login)}/${REPOSITORY_CONTRIBUTIONS}`;
-    }
+      export function repositories(login: string): string {
+        return `/${GITHUB}/${encode(login)}/${REPOSITORIES}`;
+      }
 
-    export function user(login: string): string {
-      return `/${GITHUB}/${encode(login)}`;
+      export function repositoryContributions(login: string): string {
+        return `/${GITHUB}/${encode(login)}/${REPOSITORY_CONTRIBUTIONS}`;
+      }
+
+      export function user(login: string): string {
+        return `/${GITHUB}/${encode(login)}`;
+      }
     }
   }
 

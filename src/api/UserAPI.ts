@@ -1,6 +1,6 @@
-import {Endpoint} from '../Endpoint';
-import {RequestService} from '../RequestService';
-import {ProjectRelease} from '../interfaces';
+import {Endpoint} from 'Endpoints';
+import {RequestService} from 'RequestService';
+import {ProjectRelease} from 'interfaces';
 
 export class UserAPI {
   private readonly requestService: RequestService;
@@ -9,15 +9,15 @@ export class UserAPI {
     this.requestService = requestService;
   }
 
-  public getSubscriptions(): Promise<ProjectRelease[]> {
-    const endpoint = Endpoint.subscriptions();
-    return this.requestService.get(endpoint);
-  }
-
   public addSubscription(platform: string, projectName: string, includePrerelease = false): Promise<ProjectRelease> {
     const endpoint = Endpoint.subscriptions(platform, projectName);
     const parameters = {include_prerelease: includePrerelease};
     return this.requestService.post(endpoint, parameters);
+  }
+
+  public getSubscriptions(): Promise<ProjectRelease[]> {
+    const endpoint = Endpoint.subscriptions();
+    return this.requestService.get(endpoint);
   }
 
   public async removeSubscription(platform: string, projectName: string): Promise<void> {

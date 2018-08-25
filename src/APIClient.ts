@@ -1,8 +1,8 @@
 import {URL} from 'url';
 
-import {RequestService} from './RequestService';
-import {ClientOptions, API} from './interfaces/';
-import {PlatformAPI, ProjectAPI, RepositoryAPI, UserAPI} from './api/';
+import {RequestService} from 'RequestService';
+import {ClientOptions, API} from 'interfaces/';
+import {PlatformAPI, ProjectAPI, GitHubAPI, GitHubUserAPI} from 'api/';
 
 export class LibrariesIO {
   private readonly requestService: RequestService;
@@ -25,10 +25,10 @@ export class LibrariesIO {
     this.requestService = new RequestService(options);
 
     this.api = {
+      github: new GitHubAPI(this.requestService),
       platform: new PlatformAPI(this.requestService),
       project: new ProjectAPI(this.requestService),
-      repository: new RepositoryAPI(this.requestService),
-      user: new UserAPI(this.requestService),
+      user: new GitHubUserAPI(this.requestService),
     };
   }
 

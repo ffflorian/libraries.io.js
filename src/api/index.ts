@@ -1,4 +1,4 @@
-export * from './ProjectAPI';
-export * from './RepositoryAPI';
-export * from './UserAPI';
+export * from './GitHub/';
 export * from './PlatformAPI';
+export * from './ProjectAPI';
+export * from './UserAPI';

@@ -1,8 +1,8 @@
 import axios, {AxiosRequestConfig} from 'axios';
 import {URL} from 'url';
 
-import {ExceptionMapper} from './APIException';
-import {RequestParameters, ClientOptions} from './interfaces';
+import {ExceptionMapper} from 'APIException';
+import {RequestParameters, ClientOptions} from 'interfaces';
 
 export type HttpMethod = 'DELETE' | 'GET' | 'POST' | 'PUT';
 

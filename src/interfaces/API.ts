@@ -1,8 +1,8 @@
-import {PlatformAPI, ProjectAPI, UserAPI, RepositoryAPI} from '../api';
+import {PlatformAPI, ProjectAPI, GitHubUserAPI, GitHubAPI} from 'api/';
 
 export interface API {
+  github: GitHubAPI;
   platform: PlatformAPI;
   project: ProjectAPI;
-  user: UserAPI;
-  repository: RepositoryAPI;
+  user: GitHubUserAPI;
 }

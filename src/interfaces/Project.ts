@@ -1,5 +1,5 @@
-import {ProjectVersion} from './ProjectVersion';
-import {ProjectRelease} from './ProjectRelease';
+import {ProjectVersion} from 'interfaces/ProjectVersion';
+import {ProjectRelease} from 'interfaces/ProjectRelease';
 
 export interface Project {
   dependent_repos_count: number;
