@@ -10,6 +10,7 @@
     "nock": "9.6.1",
     "prettier": "1.14.2",
     "rimraf": "2.6.2",
+    "touch": "3.1.0",
     "typedoc": "0.12.0",
     "typescript": "3.0.1"
   },
@@ -28,9 +29,12 @@
   "repository": "https://github.com/ffflorian/libraries.io.js.git",
   "scripts": {
     "build": "tsc",
+    "build:docs": "typedoc --out docs/ --mode modules --excludePrivate --excludeExternals --exclude \"**/*(index|Endpoints|RequestService).ts\"",
     "clear": "rimraf dist",
+    "clear:docs": "rimraf docs",
+    "deploy:docs": "git subtree push --prefix docs origin gh-pages",
     "dist": "yarn clear && yarn build",
-    "docs": "typedoc --out docs/ --mode modules --excludePrivate --excludeExternals --exclude \"**/*(index|Endpoints|RequestService).ts\"",
+    "dist:docs": "yarn clear:docs && yarn build:docs && nodetouch docs/.nojekyll",
     "prettier": "prettier --write \"src/**/*.ts\" \"spec/**/*.js\"",
     "test": "yarn dist && jasmine"
   },
