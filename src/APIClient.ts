@@ -32,7 +32,7 @@ export class LibrariesIO {
     };
   }
 
-  public setApiUrl(newUrl: string | URL): void {
+  public setApiUrl(newUrl: URL): void {
     this.requestService.setApiUrl(newUrl);
   }
 }

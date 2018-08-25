@@ -18,7 +18,7 @@ export interface FilterOptions {
 
 export interface ClientOptions {
   apiKey: string;
-  apiUrl?: string | URL;
+  apiUrl?: URL;
 }
 
 export interface PreReleaseOptions {

@@ -1,13 +1,13 @@
 import axios, {AxiosRequestConfig} from 'axios';
-import {URL} from 'url';
+import {URL, format} from 'url';
 
-import {ExceptionMapper} from './APIException';
+import {ExceptionMapper, InvalidResponseError} from './APIException';
 import {ClientOptions, FilterOptions, RequestOptions} from './interfaces/';
 
-export type HttpMethod = 'DELETE' | 'GET' | 'POST' | 'PUT';
+export type HttpMethod = 'delete' | 'get' | 'post' | 'put';
 
 export class RequestService {
-  private apiUrl = new URL('https://libraries.io/api');
+  private apiUrl = new URL('/api', 'https://libraries.io');
   private apiKey: string;
 
   constructor(options: ClientOptions) {
@@ -18,27 +18,23 @@ export class RequestService {
   }
 
   public delete<T>(endpoint: string, parameters?: RequestOptions): Promise<T> {
-    return this.request<T>('DELETE', endpoint, parameters);
+    return this.request<T>('delete', endpoint, parameters);
   }
 
   public get<T>(endpoint: string, parameters?: RequestOptions): Promise<T> {
-    return this.request<T>('GET', endpoint, parameters);
+    return this.request<T>('get', endpoint, parameters);
   }
 
   public post<T>(endpoint: string, parameters?: RequestOptions): Promise<T> {
-    return this.request<T>('POST', endpoint, parameters);
+    return this.request<T>('post', endpoint, parameters);
   }
 
   public put<T>(endpoint: string, parameters?: RequestOptions): Promise<T> {
-    return this.request<T>('PUT', endpoint, parameters);
+    return this.request<T>('put', endpoint, parameters);
   }
 
-  public setApiUrl(newUrl: string | URL): void {
-    if (typeof newUrl === 'string') {
-      this.apiUrl = new URL(newUrl);
-    } else {
-      this.apiUrl = newUrl;
-    }
+  public setApiUrl(apiUrl: URL): void {
+    this.apiUrl = apiUrl;
   }
 
   private static mapParameters(requestParameters?: RequestOptions) {
@@ -85,12 +81,21 @@ export class RequestService {
     const config: AxiosRequestConfig = {
       method,
       params,
-      url: this.apiUrl.toString() + endpoint,
+      url: new URL(this.apiUrl.pathname + endpoint, this.apiUrl).href,
     };
 
     try {
       const response = await axios.request<T>(config);
-      return response.data;
+      const contentType = response.headers['content-type'] as string;
+      if (contentType) {
+        if (contentType.includes('application/json')) {
+          return response.data;
+        } else {
+          throw new InvalidResponseError('The server responded with invalid data: No JSON sent.');
+        }
+      } else {
+        throw new InvalidResponseError('The server responded with invalid data: No Content-Type set.');
+      }
     } catch (error) {
       throw ExceptionMapper(error);
     }

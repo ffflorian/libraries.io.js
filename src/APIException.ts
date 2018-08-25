@@ -1,42 +1,62 @@
 import {AxiosError} from 'axios';
 
 export class APIException extends Error {
-  constructor(statusCode?: number, statusText?: string, message?: string) {
+  constructor(message = '', serverMessage?: string) {
     super(message);
-    this.message =
-      `Request failed with status code ${statusCode}` +
-      (statusText ? `: ${statusText}.` : '.') +
-      ' The server did not provide any further information.';
+    this.message += serverMessage ? `. ("${serverMessage}")` : '. The server did not provide any further information.';
     Object.setPrototypeOf(this, new.target.prototype);
   }
 }
 
 export class AuthenticationError extends Error {
-  constructor(message = 'Authentication failed. Wrong API key?') {
+  constructor(message = '', serverMessage?: string) {
     super(message);
+    this.message += '. Wrong API key?' + (serverMessage ? ` ("${serverMessage}")` : '');
     Object.setPrototypeOf(this, new.target.prototype);
   }
 }
 
 export class RateLimitError extends Error {
-  constructor(message = 'Rate limit hit.') {
+  constructor(message = '', serverMessage?: string) {
+    super(message);
+    this.message += ': Rate limit hit.' + (serverMessage ? ` ("${serverMessage}")` : '');
+    Object.setPrototypeOf(this, new.target.prototype);
+  }
+}
+
+export class NotFoundError extends Error {
+  constructor(message = '', serverMessage?: string) {
+    super(message);
+    this.message += serverMessage ? `: "${serverMessage}".` : '. The server did not provide any further information.';
+    Object.setPrototypeOf(this, new.target.prototype);
+  }
+}
+
+export class InvalidResponseError extends Error {
+  constructor(message = '') {
     super(message);
     Object.setPrototypeOf(this, new.target.prototype);
   }
 }
 
 export function ExceptionMapper(error: AxiosError): Error {
-  const {status: statusCode = 0, statusText = ''} = error.response || {};
+  if (error.response && error.response.status) {
+    const serverMessage = error.response.data ? error.response.data.message : undefined;
 
-  if (statusCode && statusText) {
-    switch (statusCode) {
+    switch (error.response.status) {
       case 403:
-        return new AuthenticationError();
+        return new AuthenticationError(error.message, serverMessage);
+      case 404:
+        return new NotFoundError(error.message, serverMessage);
       case 429:
-        return new RateLimitError();
+        return new RateLimitError(error.message, serverMessage);
       default:
-        return new APIException(statusCode, statusText);
+        return new APIException(error.message, serverMessage);
     }
+  }
+
+  if (error instanceof InvalidResponseError) {
+    return error;
   }
 
   return new Error(error.message);
