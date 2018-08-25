@@ -1,6 +1,6 @@
 import {Endpoint} from '../../Endpoints';
 import {RequestService} from '../../RequestService';
-import {Contributor, Project, Repository} from '../../interfaces/';
+import {Contributor, PageOptions, Project, Repository, RequestOptions} from '../../interfaces/';
 
 export class GitHubUserAPI {
   private readonly requestService: RequestService;
@@ -14,33 +14,45 @@ export class GitHubUserAPI {
     return this.requestService.get(endpoint);
   }
 
-  public getRepositories(userName: string): Promise<Repository[]> {
+  public getRepositories(userName: string, options?: PageOptions): Promise<Repository[]> {
     const endpoint = Endpoint.GitHub.User.repositories(userName);
-    return this.requestService.get(endpoint);
+    return this.requestService.get(endpoint, options);
   }
 
-  public getProjects(userName: string): Promise<Project[]> {
+  public getProjects(userName: string, options?: PageOptions): Promise<Project[]> {
     const endpoint = Endpoint.GitHub.User.repositories(userName);
-    return this.requestService.get(endpoint);
+    return this.requestService.get(endpoint, options);
   }
 
-  public getContributedProjects(userName: string): Promise<Project[]> {
+  public getContributedProjects(userName: string, options?: PageOptions): Promise<Project[]> {
     const endpoint = Endpoint.GitHub.User.contributedProjects(userName);
-    return this.requestService.get(endpoint);
+    return this.requestService.get(endpoint, options);
   }
 
-  public getContributedRepositories(userName: string): Promise<Repository[]> {
+  public getContributedRepositories(userName: string, options?: PageOptions): Promise<Repository[]> {
     const endpoint = Endpoint.GitHub.User.contributedRepositories(userName);
-    return this.requestService.get(endpoint);
+    return this.requestService.get(endpoint, options);
   }
 
-  public getDependencies(userName: string, platform?: string): Promise<Repository[]> {
+  public getDependencies(userName: string, options?: PageOptions): Promise<Project[]>;
+  public getDependencies(userName: string, platform?: string, options?: PageOptions): Promise<Project[]>;
+  public getDependencies(
+    userName: string,
+    platformOrOptions?: string | PageOptions,
+    options?: PageOptions
+  ): Promise<Project[]> {
     const endpoint = Endpoint.GitHub.User.contributedRepositories(userName);
+    let parameters: RequestOptions = {};
 
-    let parameters = {};
-
-    if (platform) {
-      parameters = {platform};
+    if (platformOrOptions) {
+      if (typeof platformOrOptions === 'string') {
+        parameters = {
+          platform: platformOrOptions,
+          ...options,
+        };
+      } else {
+        parameters = platformOrOptions;
+      }
     }
 
     return this.requestService.get(endpoint, parameters);
