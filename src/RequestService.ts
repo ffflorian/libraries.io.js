@@ -1,8 +1,8 @@
 import axios, {AxiosRequestConfig} from 'axios';
-import {URL, format} from 'url';
+import {URL} from 'url';
 
 import {ExceptionMapper, InvalidResponseError} from './APIException';
-import {ClientOptions, FilterOptions, RequestOptions} from './interfaces/';
+import {ClientOptions, FilterOptions, LibrariesIOHeaders, LibrariesIOResult, RequestOptions} from './interfaces/';
 
 export type HttpMethod = 'delete' | 'get' | 'post' | 'put';
 
@@ -17,19 +17,20 @@ export class RequestService {
     this.apiKey = options.apiKey;
   }
 
-  public delete<T>(endpoint: string, parameters?: RequestOptions): Promise<T> {
-    return this.request<T>('delete', endpoint, parameters);
+  public async delete<T>(endpoint: string, parameters?: RequestOptions): Promise<LibrariesIOHeaders> {
+    const {rateLimit, rateLimitRemaining} = await this.request<T>('delete', endpoint, parameters);
+    return {rateLimit, rateLimitRemaining};
   }
 
-  public get<T>(endpoint: string, parameters?: RequestOptions): Promise<T> {
+  public get<T>(endpoint: string, parameters?: RequestOptions): Promise<LibrariesIOResult<T>> {
     return this.request<T>('get', endpoint, parameters);
   }
 
-  public post<T>(endpoint: string, parameters?: RequestOptions): Promise<T> {
+  public post<T>(endpoint: string, parameters?: RequestOptions): Promise<LibrariesIOResult<T>> {
     return this.request<T>('post', endpoint, parameters);
   }
 
-  public put<T>(endpoint: string, parameters?: RequestOptions): Promise<T> {
+  public put<T>(endpoint: string, parameters?: RequestOptions): Promise<LibrariesIOResult<T>> {
     return this.request<T>('put', endpoint, parameters);
   }
 
@@ -72,7 +73,7 @@ export class RequestService {
     return mappedParameters;
   }
 
-  private async request<T>(method: HttpMethod, endpoint: string, parameters?: RequestOptions): Promise<T> {
+  private async request<T>(method: HttpMethod, endpoint: string, parameters?: RequestOptions): Promise<LibrariesIOResult<T>> {
     const params = RequestService.mapParameters({
       ...parameters,
       apiKey: this.apiKey,
@@ -85,14 +86,21 @@ export class RequestService {
     };
 
     try {
-      const response = await axios.request<T>(config);
-      const contentType = response.headers['content-type'] as string;
+      const {data, headers, status} = await axios.request<T>(config);
+
+      const contentType = headers['content-type'] ? String(headers['content-type']) : undefined;
+      const rateLimit = Number(headers['x-ratelimit-limit']);
+      const rateLimitRemaining = Number(headers['x-ratelimit-remaining']);
+      const totalResults = headers['total'] ? Number(headers['total']) : undefined;
+
       if (contentType) {
         if (contentType.includes('application/json')) {
-          return response.data;
+          return {data, rateLimit, rateLimitRemaining, totalResults};
         } else {
           throw new InvalidResponseError('The server responded with invalid data: No JSON sent.');
         }
+      } else if (status === 204) {
+        return {data, rateLimit, rateLimitRemaining};
       } else {
         throw new InvalidResponseError('The server responded with invalid data: No Content-Type set.');
       }

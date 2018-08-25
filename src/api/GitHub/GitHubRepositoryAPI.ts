@@ -1,6 +1,6 @@
 import {Endpoint} from '../../Endpoints';
 import {RequestService} from '../../RequestService';
-import {PaginationOptions, Project, RepositoryWithDependencies} from '../../interfaces/';
+import {PaginationOptions, LibrariesIOResult, Project, RepositoryWithDependencies} from '../../interfaces/';
 
 export class GitHubRepositoryAPI {
   private readonly requestService: RequestService;
@@ -15,7 +15,7 @@ export class GitHubRepositoryAPI {
    * @param repositoryOwner The repository owner
    * @param repositoryName The repository name
    */
-  public getRepository(repositoryOwner: string, repositoryName: string): Promise<RepositoryWithDependencies> {
+  public getRepository(repositoryOwner: string, repositoryName: string): Promise<LibrariesIOResult<RepositoryWithDependencies>> {
     const endpoint = Endpoint.GitHub.Repository.repository(repositoryOwner, repositoryName);
     return this.requestService.get(endpoint);
   }
@@ -29,7 +29,7 @@ export class GitHubRepositoryAPI {
   public getRepositoryWithDependencies(
     repositoryOwner: string,
     repositoryName: string
-  ): Promise<RepositoryWithDependencies> {
+  ): Promise<LibrariesIOResult<RepositoryWithDependencies>> {
     const endpoint = Endpoint.GitHub.Repository.dependencies(repositoryOwner, repositoryName);
     return this.requestService.get(endpoint);
   }
@@ -41,7 +41,7 @@ export class GitHubRepositoryAPI {
    * @param repositoryName The repository name
    * @param options Pagination Options
    */
-  public getProjects(repositoryOwner: string, repositoryName: string, options?: PaginationOptions): Promise<Project[]> {
+  public getProjects(repositoryOwner: string, repositoryName: string, options?: PaginationOptions): Promise<LibrariesIOResult<Project[]>> {
     const endpoint = Endpoint.GitHub.Repository.projects(repositoryOwner, repositoryName);
     return this.requestService.get(endpoint, options);
   }

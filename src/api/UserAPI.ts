@@ -1,6 +1,6 @@
 import {Endpoint} from '../Endpoints';
 import {RequestService} from '../RequestService';
-import {PaginationOptions, PreReleaseOptions, Subscription} from '../interfaces/';
+import {LibrariesIOHeaders, LibrariesIOResult, PaginationOptions, PreReleaseOptions, Subscription} from '../interfaces/';
 
 export class UserAPI {
   private readonly requestService: RequestService;
@@ -15,7 +15,7 @@ export class UserAPI {
    * @param platform The project platform (e.g. "npm", "cargo", ...)
    * @param projectName The project name
    */
-  public getSubscription(platform: string, projectName: string): Promise<Subscription | null> {
+  public getSubscription(platform: string, projectName: string): Promise<LibrariesIOResult<Subscription | null>> {
     const endpoint = Endpoint.subscriptions(platform, projectName);
     return this.requestService.get(endpoint);
   }
@@ -25,7 +25,7 @@ export class UserAPI {
    * @see https://libraries.io/api#subscriptions-index
    * @param options Pagination options
    */
-  public getAllSubscriptions(options?: PaginationOptions): Promise<Subscription[]> {
+  public getAllSubscriptions(options?: PaginationOptions): Promise<LibrariesIOResult<Subscription[]>> {
     const endpoint = Endpoint.subscriptions();
     return this.requestService.get(endpoint, options);
   }
@@ -37,7 +37,7 @@ export class UserAPI {
    * @param projectName The project name
    * @param options Subscription options
    */
-  public subscribe(platform: string, projectName: string, options?: PreReleaseOptions): Promise<Subscription> {
+  public subscribe(platform: string, projectName: string, options?: PreReleaseOptions): Promise<LibrariesIOResult<Subscription>> {
     const endpoint = Endpoint.subscriptions(platform, projectName);
     return this.requestService.post(endpoint, options);
   }
@@ -48,9 +48,9 @@ export class UserAPI {
    * @param platform The project platform (e.g. "npm", "cargo", ...)
    * @param projectName The project name
    */
-  public async unsubscribe(platform: string, projectName: string): Promise<void> {
+  public unsubscribe(platform: string, projectName: string): Promise<LibrariesIOHeaders> {
     const endpoint = Endpoint.subscriptions(platform, projectName);
-    await this.requestService.delete(endpoint);
+    return this.requestService.delete(endpoint);
   }
 
   /**
@@ -60,7 +60,7 @@ export class UserAPI {
    * @param projectName The project name
    * @param options Subscription options
    */
-  public updateSubscription(platform: string, projectName: string, options?: PreReleaseOptions): Promise<Subscription> {
+  public updateSubscription(platform: string, projectName: string, options?: PreReleaseOptions): Promise<LibrariesIOResult<Subscription>> {
     const endpoint = Endpoint.subscriptions(platform, projectName);
     return this.requestService.put(endpoint, options);
   }
