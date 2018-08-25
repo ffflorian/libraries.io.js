@@ -1,6 +1,6 @@
-import {Endpoint} from 'Endpoints';
-import {RequestService} from 'RequestService';
-import {Project, RepositoryWithDependencies} from 'interfaces';
+import {Endpoint} from '../../Endpoints';
+import {RequestService} from '../../RequestService';
+import {Project, RepositoryWithDependencies} from '../../interfaces/';
 
 export class GitHubRepositoryAPI {
   private readonly requestService: RequestService;

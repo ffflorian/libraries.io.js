@@ -1,4 +1,4 @@
-import {RequestService} from 'RequestService';
+import {RequestService} from '../../RequestService';
 import {GitHubRepositoryAPI} from './GitHubRepositoryAPI';
 import {GitHubUserAPI} from './GitHubUserAPI';
 

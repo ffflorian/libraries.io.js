@@ -1,6 +1,6 @@
-import {Endpoint} from 'Endpoints';
-import {RequestService} from 'RequestService';
-import {ProjectRelease} from 'interfaces';
+import {Endpoint} from '../Endpoints';
+import {RequestService} from '../RequestService';
+import {ProjectRelease} from '../interfaces/';
 
 export class UserAPI {
   private readonly requestService: RequestService;

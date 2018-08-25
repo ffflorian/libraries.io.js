@@ -1,6 +1,6 @@
-import {Endpoint} from 'Endpoints';
-import {RequestService} from 'RequestService';
-import {Contributor, Project, Repository} from 'interfaces/';
+import {Endpoint} from '../../Endpoints';
+import {RequestService} from '../../RequestService';
+import {Contributor, Project, Repository} from '../../interfaces/';
 
 export class GitHubUserAPI {
   private readonly requestService: RequestService;
@@ -40,7 +40,7 @@ export class GitHubUserAPI {
     let parameters = {};
 
     if (platform) {
-      parameters = {platform}
+      parameters = {platform};
     }
 
     return this.requestService.get(endpoint, parameters);
