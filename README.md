@@ -6,6 +6,12 @@ A [libraries.io](https://libraries.io) API client. For a documentation on the AP
 
 A complete documentation is available at https://ffflorian.github.io/libraries.io.js/.
 
+### Installation
+
+Run `yarn add @ffflorian/xkcdjs` or `npm install @ffflorian/xkcdjs`.
+
+### Example
+
 ```ts
 import {LibrariesIO} from 'libraries.io';
 
