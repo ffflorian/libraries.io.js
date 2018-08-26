@@ -2,9 +2,14 @@ import axios, {AxiosRequestConfig} from 'axios';
 import {URL} from 'url';
 
 import {ExceptionMapper, InvalidResponseError} from './APIException';
-import {ClientOptions, FilterOptions, LibrariesIOHeaders, LibrariesIOResult, RequestOptions} from './interfaces/';
-
-export type HttpMethod = 'delete' | 'get' | 'post' | 'put';
+import {
+  ClientOptions,
+  FilterOptions,
+  HttpMethod,
+  LibrariesIOHeaders,
+  LibrariesIOResult,
+  RequestOptions,
+} from './interfaces/';
 
 export class RequestService {
   private apiUrl = new URL('/api', 'https://libraries.io');
@@ -73,7 +78,11 @@ export class RequestService {
     return mappedParameters;
   }
 
-  private async request<T>(method: HttpMethod, endpoint: string, parameters?: RequestOptions): Promise<LibrariesIOResult<T>> {
+  private async request<T>(
+    method: HttpMethod,
+    endpoint: string,
+    parameters?: RequestOptions
+  ): Promise<LibrariesIOResult<T>> {
     const params = RequestService.mapParameters({
       ...parameters,
       apiKey: this.apiKey,

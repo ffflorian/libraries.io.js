@@ -13,7 +13,7 @@ export interface FilterOptions {
   keywords?: string[];
   languages?: string[];
   licenses?: string[];
-  platforms?: string[];
+  platforms?: PlatformType[];
 }
 
 export interface ClientOptions {
@@ -37,6 +37,51 @@ export interface SearchOptions extends PaginationOptions {
 
 export interface RequestOptions extends SearchOptions, PreReleaseOptions {
   apiKey?: string;
-  platform?: string;
+  platform?: PlatformType;
   query?: string;
 }
+
+export type HttpMethod = 'delete' | 'get' | 'post' | 'put';
+
+export enum HttpStatus {
+  'FORBIDDEN' = 403,
+  'NOT_FOUND' = 404,
+  'TOO_MANY_REQUESTS' = 429,
+}
+
+export type PlatformType =
+  | 'alcatraz'
+  | 'atom'
+  | 'bower'
+  | 'cargo'
+  | 'carthage'
+  | 'clojars'
+  | 'cocoapods'
+  | 'cpan'
+  | 'cran'
+  | 'dub'
+  | 'elm'
+  | 'emacs'
+  | 'go'
+  | 'hackage'
+  | 'haxelib'
+  | 'hex'
+  | 'homebrew'
+  | 'inqlude'
+  | 'julia'
+  | 'maven'
+  | 'meteor'
+  | 'nimble'
+  | 'npm'
+  | 'nuget'
+  | 'packagist'
+  | 'platformio'
+  | 'pub'
+  | 'puppet'
+  | 'purescript'
+  | 'pypi'
+  | 'racket'
+  | 'rubygems'
+  | 'sublime'
+  | 'swiftpm'
+  | 'wordpress';

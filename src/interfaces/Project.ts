@@ -1,3 +1,5 @@
+import {PlatformType} from './Options';
+
 export interface Project {
   dependent_repos_count: number;
   dependents_count: number;
@@ -36,7 +38,7 @@ export interface ProjectDependency {
   latest: string;
   name: string;
   outdated: boolean;
-  platform: string;
+  platform: PlatformType;
   project_name: string;
   requirements: string;
 }

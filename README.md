@@ -18,8 +18,8 @@ import {LibrariesIO} from 'libraries.io';
 const librariesIO = new LibrariesIO('my-api-key');
 
 librariesIO.api.project.getProject('npm', 'grunt')
-  .then(project => {
-    // ...
+  .then(response => {
+    //
   })
 
 librariesIO.api.project.search('grunt', {
