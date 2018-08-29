@@ -8,7 +8,7 @@ A complete documentation is available at https://ffflorian.github.io/libraries.i
 
 ### Installation
 
-Run `yarn add @ffflorian/xkcdjs` or `npm install @ffflorian/xkcdjs`.
+Run `yarn add libraries.io` or `npm install libraries.io`.
 
 ### Example
 
