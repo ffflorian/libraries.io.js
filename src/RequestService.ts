@@ -59,15 +59,18 @@ export class RequestService {
         let parameterValue = requestParameters[parameterKey as keyof RequestOptions];
         if (parameterValue) {
           const mappedOption = parameterKey in map ? map[parameterKey] : parameterKey;
-          if (typeof parameterValue === 'object' && Object.values(parameterValue).some(val => val instanceof Array)) {
+          if (parameterValue instanceof Array) {
+            parameterValue = parameterValue.join(',');
+          } else if (
+            typeof parameterValue === 'object' &&
+            Object.values(parameterValue).some(val => val instanceof Array)
+          ) {
             for (const filterKey in parameterValue) {
               const filterValue = parameterValue[filterKey as keyof FilterOptions];
               if (filterValue) {
                 mappedParameters[filterKey] = filterValue.join(',');
               }
             }
-          } else if (parameterValue instanceof Array) {
-            parameterValue = parameterValue.join(',');
           } else {
             mappedParameters[mappedOption] = parameterValue;
           }
