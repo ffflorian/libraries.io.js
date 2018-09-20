@@ -1,6 +1,4 @@
-//@ts-check
-
-const {Endpoint} = require('../dist/Endpoints');
+import {Endpoint} from '../src/Endpoints';
 
 describe('Endpoint', () => {
   it('concats platform and name', () => {

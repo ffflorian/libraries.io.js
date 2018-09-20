@@ -1,12 +1,9 @@
-//@ts-check
-
-const librariesIO = require('../');
-const {RequestService} = require('../dist/RequestService');
+import * as librariesIO from '../src';
+import {RequestService} from '../src/RequestService';
 
 describe('Endpoint', () => {
   it('concats platform and name', () => {
-    /** @type {librariesIO.SearchOptions} */
-    const options = {
+    const options: librariesIO.SearchOptions = {
       filter: {
         keywords: ['key1', 'key2'],
       },
@@ -15,11 +12,9 @@ describe('Endpoint', () => {
       sortBy: 'created_at',
     };
 
-    //const requestService = new RequestService({apiKey: 'my-api-key'});
-
-    const mappedParameters = RequestService.mapParameters(options);
+    const mappedParameters = RequestService['mapParameters'](options);
     expect(mappedParameters).toEqual(
-      jasmine.objectContaining({
+      jasmine.objectContaining<any>({
         keywords: 'key1,key2',
         page: 2,
         per_page: 10,
