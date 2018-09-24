@@ -1,7 +1,7 @@
 {
   "author": "Florian Keller <github@floriankeller.de>",
   "dependencies": {
-    "@types/node": "10.10.1",
+    "@types/node": "10.10.3",
     "axios": "0.18.0"
   },
   "description": "A libraries.io API client",
