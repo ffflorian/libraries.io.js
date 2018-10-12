@@ -6,15 +6,15 @@ import {
   ClientOptions,
   FilterOptions,
   HttpMethod,
+  HttpStatus,
   LibrariesIOHeaders,
   LibrariesIOResult,
   RequestOptions,
-  HttpStatus,
 } from './interfaces/';
 
 export class RequestService {
+  private readonly apiKey: string;
   private apiUrl = new URL('/api', 'https://libraries.io');
-  private apiKey: string;
 
   constructor(options: ClientOptions) {
     if (options.apiUrl) {

@@ -6,8 +6,8 @@ import {GitHubRepositoryAPI, GitHubUserAPI, PlatformAPI, ProjectAPI, UserAPI} fr
 
 export class LibrariesIO {
   private readonly requestService: RequestService;
-  private options: ClientOptions;
-  public api: API;
+  private readonly options: ClientOptions;
+  public readonly api: API;
 
   constructor(apiKey: string);
   constructor(options: ClientOptions);
