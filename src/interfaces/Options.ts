@@ -44,9 +44,10 @@ export interface RequestOptions extends SearchOptions, PreReleaseOptions {
 export type HttpMethod = 'delete' | 'get' | 'post' | 'put';
 
 export enum HttpStatus {
-  'FORBIDDEN' = 403,
-  'NOT_FOUND' = 404,
-  'TOO_MANY_REQUESTS' = 429,
+  FORBIDDEN = 403,
+  NO_CONTENT = 204,
+  NOT_FOUND = 404,
+  TOO_MANY_REQUESTS = 429,
 }
 
 export type PlatformType =

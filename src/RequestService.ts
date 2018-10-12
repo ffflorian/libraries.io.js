@@ -9,6 +9,7 @@ import {
   LibrariesIOHeaders,
   LibrariesIOResult,
   RequestOptions,
+  HttpStatus,
 } from './interfaces/';
 
 export class RequestService {
@@ -111,7 +112,7 @@ export class RequestService {
         } else {
           throw new InvalidResponseError('The server responded with invalid data: No JSON sent.');
         }
-      } else if (status === 204) {
+      } else if (status === HttpStatus.NO_CONTENT) {
         return {data, rateLimit, rateLimitRemaining};
       } else {
         throw new InvalidResponseError('The server responded with invalid data: No Content-Type set.');
