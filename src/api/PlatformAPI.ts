@@ -1,6 +1,6 @@
 import {Endpoint} from '../Endpoints';
+import {LibrariesIOResult, PaginationOptions, Platform} from '../interfaces/';
 import {RequestService} from '../RequestService';
-import {LibrariesIOResult, Platform, PaginationOptions} from '../interfaces/';
 
 export class PlatformAPI {
   private readonly requestService: RequestService;

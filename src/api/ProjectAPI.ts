@@ -1,5 +1,4 @@
 import {Endpoint} from '../Endpoints';
-import {RequestService} from '../RequestService';
 import {
   Contributor,
   LibrariesIOResult,
@@ -11,6 +10,7 @@ import {
   Repository,
   SearchOptions,
 } from '../interfaces/';
+import {RequestService} from '../RequestService';
 
 export class ProjectAPI {
   private readonly requestService: RequestService;

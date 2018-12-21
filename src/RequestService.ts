@@ -49,8 +49,8 @@ export class RequestService {
       apiKey: 'api_key',
       includePreRelease: 'include_prerelease',
       perPage: 'per_page',
-      sortBy: 'sort',
       query: 'q',
+      sortBy: 'sort',
     };
 
     const mappedParameters: {[index: string]: string | boolean | number | FilterOptions} = {};

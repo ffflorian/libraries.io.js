@@ -1,6 +1,6 @@
 import {Endpoint} from '../../Endpoints';
+import {LibrariesIOResult, PaginationOptions, Project, RepositoryWithDependencies} from '../../interfaces/';
 import {RequestService} from '../../RequestService';
-import {PaginationOptions, LibrariesIOResult, Project, RepositoryWithDependencies} from '../../interfaces/';
 
 export class GitHubRepositoryAPI {
   private readonly requestService: RequestService;

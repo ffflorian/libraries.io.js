@@ -1,14 +1,14 @@
 import {Endpoint} from '../../Endpoints';
-import {RequestService} from '../../RequestService';
 import {
   Contributor,
   LibrariesIOResult,
   PaginationOptions,
+  PlatformType,
   Project,
   Repository,
   RequestOptions,
-  PlatformType,
 } from '../../interfaces/';
+import {RequestService} from '../../RequestService';
 
 export class GitHubUserAPI {
   private readonly requestService: RequestService;

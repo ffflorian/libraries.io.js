@@ -1,5 +1,4 @@
 import {Endpoint} from '../Endpoints';
-import {RequestService} from '../RequestService';
 import {
   LibrariesIOHeaders,
   LibrariesIOResult,
@@ -8,6 +7,7 @@ import {
   PreReleaseOptions,
   Subscription,
 } from '../interfaces/';
+import {RequestService} from '../RequestService';
 
 export class UserAPI {
   private readonly requestService: RequestService;
